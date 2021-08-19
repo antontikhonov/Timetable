@@ -3,7 +3,6 @@
     <string name="change_theme">Выбор темы</string>
     <string name="map_area">Карта райончика</string>
 
-
     <string name="first_pair_called">1. 08:30–10:00</string>
     <string name="second_pair_called">2. 10:10–11:40</string>
     <string name="third_pair_called">3. 12:20–13:50</string>
@@ -31,4 +30,6 @@
 
     <string name="image_description">background_image</string>
     <string name="image_settings">background_image</string>
+    <string name="designed_by_chiburick">designed by @chiburick</string>
+    <string name="devoloped_by_antoshka_izh">devoloped by @antoshka_izh</string>
 </resources>

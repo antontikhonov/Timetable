@@ -1,5 +1,7 @@
 package com.tikhonov.android.schedule_2;
 
+import static com.tikhonov.android.schedule_2.MainActivityKt.LINES_COLOR;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -89,7 +91,7 @@ public class DayFragment extends Fragment {
         dbReferences.add(database.getReference(day).child("7_under"));
         dayReference = database.getReference(day).child("day");
 
-        ThemeSetter.setBackgroundViews(lines, MainActivity.sharedPreferences.getString(MainActivity.LINES_COLOR, "#C88548"));
+        ThemeSetter.Companion.setBackgroundViews(lines, MainActivity.sharedPreferences.getString(LINES_COLOR, "#C88548"));
 
         cursor = MainActivity.db.query("DAY",
                 new String[]{"ON1", "UNDER1", "ON2", "UNDER2", "ON3", "UNDER3", "ON4", "UNDER4", "ON5", "UNDER5", "ON6", "UNDER6", "ON7", "UNDER7", "NAME"},

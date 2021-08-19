@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
-        android:id="@+id/image_day"
+        android:id="@+id/dayBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/image_description"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        tools:src="@drawable/alina" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"/>
+        android:background="@color/transparent_dark_grey" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-</RelativeLayout>
+</FrameLayout>

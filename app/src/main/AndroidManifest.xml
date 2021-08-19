@@ -22,10 +22,10 @@
         <activity
             android:name=".DayActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Launcher">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
