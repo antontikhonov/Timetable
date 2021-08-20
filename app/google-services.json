@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "668075788900",
+    "firebase_url": "https://timet-e34a1.firebaseio.com",
+    "project_id": "timet-e34a1",
+    "storage_bucket": "timet-e34a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668075788900:android:4dd0cf34a47e6d5c322d71",
+        "android_client_info": {
+          "package_name": "com.tikhonov.android.schedule_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668075788900-p9aq69plio6ruoofkg7g3b670lpkasgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvUEsbFbiWFjKgpdSsZu32_6xmu88nZoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668075788900-p9aq69plio6ruoofkg7g3b670lpkasgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
