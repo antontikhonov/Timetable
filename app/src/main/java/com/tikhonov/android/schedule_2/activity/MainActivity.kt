@@ -1,4 +1,4 @@
-package com.tikhonov.android.schedule_2
+package com.tikhonov.android.schedule_2.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,6 +10,9 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.tikhonov.android.schedule_2.R
+import com.tikhonov.android.schedule_2.ThemeSetter
+import com.tikhonov.android.schedule_2.TimetableDatabaseHelper
 import java.util.*
 
 const val fileName = "mysettings";
@@ -52,13 +55,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        ThemeSetter.setImage(this, packageName, sharedPreferences.getString(IMAGE_BACKGROUND, null)!!, imageView);
-        ThemeSetter.setButtonsTextColor(buttons, sharedPreferences.getString(BUTTON_TEXT_COLOR, null)!!)
+        ThemeSetter.setImage(
+            this,
+            packageName,
+            sharedPreferences.getString(IMAGE_BACKGROUND, null)!!,
+            imageView
+        );
+        ThemeSetter.setButtonsTextColor(
+            buttons,
+            sharedPreferences.getString(BUTTON_TEXT_COLOR, null)!!
+        )
         ThemeSetter.setButtonsColor(
             this,
             packageName, sharedPreferences.getString(BUTTON_COLOR, null)!!,
             buttons
-        );
+        )
     }
 
     override fun onStop() {
@@ -70,20 +81,38 @@ class MainActivity : AppCompatActivity() {
         var numberDay = GregorianCalendar.DAY_OF_WEEK - 1
         if (numberDay == 0) {
             numberDay = 1
-            Toast.makeText(this, "Сегодня воскресенье, поэтому вот тебе понедельник", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Сегодня воскресенье, поэтому вот тебе понедельник",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         progressBar.visibility = View.VISIBLE
-        startActivity(Intent(this, DayActivity::class.java).putExtra(DayActivity.DAY_NAME, numberDay.toString()))
+        startActivity(
+            Intent(this, DayActivity::class.java).putExtra(
+                DAY_NAME,
+                numberDay.toString()
+            )
+        )
     }
 
     fun toTomorrow(view: View) {
         var numberDay = GregorianCalendar.DAY_OF_WEEK
         if (numberDay == 7) {
             numberDay = 1
-            Toast.makeText(this, "Завтра воскресенье, поэтому вот тебе понедельник", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Завтра воскресенье, поэтому вот тебе понедельник",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         progressBar.visibility = View.VISIBLE
-        startActivity(Intent(this, DayActivity::class.java).putExtra(DayActivity.DAY_NAME, numberDay.toString()))
+        startActivity(
+            Intent(this, DayActivity::class.java).putExtra(
+                DAY_NAME,
+                numberDay.toString()
+            )
+        )
     }
 
     fun toSettings(view: View) {

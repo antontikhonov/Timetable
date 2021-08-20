@@ -1,16 +1,22 @@
-package com.tikhonov.android.schedule_2;
+package com.tikhonov.android.schedule_2.activity;
 
-import static com.tikhonov.android.schedule_2.MainActivityKt.BUTTON_COLOR;
-import static com.tikhonov.android.schedule_2.MainActivityKt.BUTTON_TEXT_COLOR;
-import static com.tikhonov.android.schedule_2.MainActivityKt.IMAGE_BACKGROUND;
-import static com.tikhonov.android.schedule_2.MainActivityKt.LINES_COLOR;
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.BUTTON_COLOR;
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.BUTTON_TEXT_COLOR;
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.IMAGE_BACKGROUND;
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.LINES_COLOR;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.tikhonov.android.schedule_2.R;
+import com.tikhonov.android.schedule_2.ThemeSetter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +28,12 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
         list.add((ImageView) findViewById(R.id.theme1));
         list.add((ImageView) findViewById(R.id.theme2));
         list.add((ImageView) findViewById(R.id.theme3));
         list.add((ImageView) findViewById(R.id.theme4));
         list.add((ImageView) findViewById(R.id.theme5));
         list.add((ImageView) findViewById(R.id.theme6));
-
         imageView = findViewById(R.id.image_settings);
     }
 
@@ -59,12 +63,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void toInstagramChiburick(View view) {
         Uri uri = Uri.parse("http://instagram.com/_u/chiburick");
-        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
-        likeIng.setPackage("com.instagram.android");
-
+        Intent likeIntent = new Intent(Intent.ACTION_VIEW, uri).setPackage("com.instagram.android");
         try {
-            startActivity(likeIng);
+            startActivity(likeIntent);
         } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://instagram.com/chiburick")));
@@ -73,33 +74,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void toInstagramAntoha(View view) {
         Uri uri = Uri.parse("http://instagram.com/_u/antoshka_izh");
-        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
-        likeIng.setPackage("com.instagram.android");
-
+        Intent likeIntent = new Intent(Intent.ACTION_VIEW, uri).setPackage("com.instagram.android");
         try {
-            startActivity(likeIng);
+            startActivity(likeIntent);
         } catch (ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://instagram.com/antoshka_izh")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/antoshka_izh")));
         }
-    }
-
-    public void updateTheme(String image, String rounded_theme, String color_button, String color_lines) {
-        MainActivity.sharedPreferences.edit()
-                .putString(IMAGE_BACKGROUND, image)
-                .putString(BUTTON_COLOR, rounded_theme)
-                .putString(BUTTON_TEXT_COLOR, color_button)
-                .putString(LINES_COLOR, color_lines)
-                .apply();
-
-        ThemeSetter.Companion.setImage(this, getPackageName(), image, imageView);
-        setSelectedScreenshots("alina", 0);
-        setSelectedScreenshots("loli", 1);
-        setSelectedScreenshots("electricity", 2);
-        setSelectedScreenshots("iamgay", 3);
-        setSelectedScreenshots("pornhub", 4);
-        setSelectedScreenshots("satanism", 5);
     }
 
     public void updateAlina(View view) {
@@ -124,5 +104,22 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void updateSatanism(View view) {
         updateTheme("satanism", "rounded_satanism", "#ffffff", "#5D0C10");
+    }
+
+    public void updateTheme(String image, String rounded_theme, String color_button, String color_lines) {
+        MainActivity.sharedPreferences.edit()
+                .putString(IMAGE_BACKGROUND, image)
+                .putString(BUTTON_COLOR, rounded_theme)
+                .putString(BUTTON_TEXT_COLOR, color_button)
+                .putString(LINES_COLOR, color_lines)
+                .apply();
+
+        ThemeSetter.Companion.setImage(this, getPackageName(), image, imageView);
+        setSelectedScreenshots("alina", 0);
+        setSelectedScreenshots("loli", 1);
+        setSelectedScreenshots("electricity", 2);
+        setSelectedScreenshots("iamgay", 3);
+        setSelectedScreenshots("pornhub", 4);
+        setSelectedScreenshots("satanism", 5);
     }
 }

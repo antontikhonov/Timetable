@@ -1,6 +1,6 @@
 package com.tikhonov.android.schedule_2;
 
-import static com.tikhonov.android.schedule_2.MainActivityKt.LINES_COLOR;
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.LINES_COLOR;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -19,11 +19,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tikhonov.android.schedule_2.activity.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DayFragment extends Fragment {
     private ArrayList<TextView> pairs = new ArrayList<>();
@@ -43,36 +43,36 @@ public class DayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        lines.add(Objects.requireNonNull(getView()).findViewById(R.id.line_1));
-        lines.add(getView().findViewById(R.id.line_2));
-        lines.add(getView().findViewById(R.id.line_3));
-        lines.add(getView().findViewById(R.id.line_4));
-        lines.add(getView().findViewById(R.id.line_5));
-        lines.add(getView().findViewById(R.id.line_6));
-        lines.add(getView().findViewById(R.id.line_7));
-        lines.add(getView().findViewById(R.id.line_8));
-        lines.add(getView().findViewById(R.id.line_9));
-        lines.add(getView().findViewById(R.id.line_10));
-        lines.add(getView().findViewById(R.id.line_11));
-        lines.add(getView().findViewById(R.id.line_12));
-        lines.add(getView().findViewById(R.id.line_13));
-        lines.add(getView().findViewById(R.id.line_14));
+        lines.add(view.findViewById(R.id.line_1));
+        lines.add(view.findViewById(R.id.line_2));
+        lines.add(view.findViewById(R.id.line_3));
+        lines.add(view.findViewById(R.id.line_4));
+        lines.add(view.findViewById(R.id.line_5));
+        lines.add(view.findViewById(R.id.line_6));
+        lines.add(view.findViewById(R.id.line_7));
+        lines.add(view.findViewById(R.id.line_8));
+        lines.add(view.findViewById(R.id.line_9));
+        lines.add(view.findViewById(R.id.line_10));
+        lines.add(view.findViewById(R.id.line_11));
+        lines.add(view.findViewById(R.id.line_12));
+        lines.add(view.findViewById(R.id.line_13));
+        lines.add(view.findViewById(R.id.line_14));
 
-        pairs.add((TextView) getView().findViewById(R.id.m_a));
-        pairs.add((TextView) getView().findViewById(R.id.m_b));
-        pairs.add((TextView) getView().findViewById(R.id.m_c));
-        pairs.add((TextView) getView().findViewById(R.id.m_d));
-        pairs.add((TextView) getView().findViewById(R.id.m_e));
-        pairs.add((TextView) getView().findViewById(R.id.m_f));
-        pairs.add((TextView) getView().findViewById(R.id.m_g));
-        pairs.add((TextView) getView().findViewById(R.id.m_h));
-        pairs.add((TextView) getView().findViewById(R.id.m_i));
-        pairs.add((TextView) getView().findViewById(R.id.m_j));
-        pairs.add((TextView) getView().findViewById(R.id.m_k));
-        pairs.add((TextView) getView().findViewById(R.id.m_l));
-        pairs.add((TextView) getView().findViewById(R.id.m_m));
-        pairs.add((TextView) getView().findViewById(R.id.m_n));
-        dayName = (TextView) getView().findViewById(R.id.name_of_day);
+        pairs.add((TextView) view.findViewById(R.id.m_a));
+        pairs.add((TextView) view.findViewById(R.id.m_b));
+        pairs.add((TextView) view.findViewById(R.id.m_c));
+        pairs.add((TextView) view.findViewById(R.id.m_d));
+        pairs.add((TextView) view.findViewById(R.id.m_e));
+        pairs.add((TextView) view.findViewById(R.id.m_f));
+        pairs.add((TextView) view.findViewById(R.id.m_g));
+        pairs.add((TextView) view.findViewById(R.id.m_h));
+        pairs.add((TextView) view.findViewById(R.id.m_i));
+        pairs.add((TextView) view.findViewById(R.id.m_j));
+        pairs.add((TextView) view.findViewById(R.id.m_k));
+        pairs.add((TextView) view.findViewById(R.id.m_l));
+        pairs.add((TextView) view.findViewById(R.id.m_m));
+        pairs.add((TextView) view.findViewById(R.id.m_n));
+        dayName = (TextView) view.findViewById(R.id.name_of_day);
 
         database = FirebaseDatabase.getInstance();
         dbReferences.add(database.getReference(day).child("1_on"));
