@@ -1,47 +1,55 @@
 package com.tikhonov.android.schedule_2;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.tikhonov.android.schedule_2.activity.MainActivityKt.LINES_COLOR;
-
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.SHARED_PREFERENCES_FILE_NAME;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.tikhonov.android.schedule_2.activity.MainActivity;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 public class DayFragment extends Fragment {
-    private ArrayList<TextView> pairs = new ArrayList<>();
-    private TextView dayName;
-    ArrayList<View> lines = new ArrayList<>();
-    private String day;
+
+    final ArrayList<View> lines = new ArrayList<>();
+    final ArrayList<DatabaseReference> dbReferences = new ArrayList<>();
     Cursor cursor;
     FirebaseDatabase database;
-    ArrayList<DatabaseReference> dbReferences = new ArrayList<>();
     DatabaseReference dayReference;
+    private SQLiteDatabase db;
+    private final String day;
+    private final ArrayList<TextView> pairs = new ArrayList<>();
+    private TextView dayName;
 
     public DayFragment(String day) {
+        super(R.layout.fragment_day);
         this.day = day;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE);
+        db = new TimetableDatabaseHelper(requireContext()).getWritableDatabase();
+
+        view.findViewById(R.id.dayBackArrow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         lines.add(view.findViewById(R.id.line_1));
         lines.add(view.findViewById(R.id.line_2));
@@ -72,7 +80,7 @@ public class DayFragment extends Fragment {
         pairs.add((TextView) view.findViewById(R.id.m_l));
         pairs.add((TextView) view.findViewById(R.id.m_m));
         pairs.add((TextView) view.findViewById(R.id.m_n));
-        dayName = (TextView) view.findViewById(R.id.name_of_day);
+        dayName = (TextView) view.findViewById(R.id.dayHeader);
 
         database = FirebaseDatabase.getInstance();
         dbReferences.add(database.getReference(day).child("1_on"));
@@ -91,11 +99,26 @@ public class DayFragment extends Fragment {
         dbReferences.add(database.getReference(day).child("7_under"));
         dayReference = database.getReference(day).child("day");
 
-        ThemeSetter.Companion.setBackgroundViews(lines, MainActivity.sharedPreferences.getString(LINES_COLOR, "#C88548"));
+        ThemeSetter.Companion.setBackgroundViews(lines, sharedPreferences.getString(LINES_COLOR, "#C88548"));
 
-        cursor = MainActivity.db.query("DAY",
-                new String[]{"ON1", "UNDER1", "ON2", "UNDER2", "ON3", "UNDER3", "ON4", "UNDER4", "ON5", "UNDER5", "ON6", "UNDER6", "ON7", "UNDER7", "NAME"},
-                "NAME = ?", new String[]{day}, null, null, null);
+        cursor = db.query(
+                "DAY",
+                new String[] {
+                        "ON1", "UNDER1",
+                        "ON2", "UNDER2",
+                        "ON3", "UNDER3",
+                        "ON4", "UNDER4",
+                        "ON5", "UNDER5",
+                        "ON6", "UNDER6",
+                        "ON7", "UNDER7",
+                        "NAME"
+                },
+                "NAME = ?",
+                new String[]{ day },
+                null,
+                null,
+                null
+        );
         cursor.moveToFirst();
         dayName.setText(cursor.getString(14));
 
@@ -135,19 +158,6 @@ public class DayFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_day, container, false);
-    }
-
-    public void recoverOnSpace(int numberLine, int checkingForExistence, String numberPair, String value) {
-        ContentValues dayValues = new ContentValues();
-        dayValues.put(numberPair, value);
-        MainActivity.db.update("DAY", dayValues, "NAME = ?", new String[]{day});
-        lines.get(numberLine).setVisibility(View.GONE);
-        pairs.get(checkingForExistence).setVisibility(View.GONE);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         for (int i = 0; i < dbReferences.size(); i++) {
@@ -156,7 +166,6 @@ public class DayFragment extends Fragment {
                 @Override
                 public void onDataChange(@NotNull DataSnapshot snapshot) {
                     String value = snapshot.getValue(String.class);
-                    assert value != null;
                     if (value.equals("")) {
                         switch (finalI) {
                             case 0:
@@ -269,23 +278,31 @@ public class DayFragment extends Fragment {
         });
     }
 
-    public void recoverOnPairs(int numberLine, int checkingForExistence, String numberPair, String value) {
+    private void recoverOnSpace(int numberLine, int checkingForExistence, String numberPair, String value) {
+        ContentValues dayValues = new ContentValues();
+        dayValues.put(numberPair, value);
+        db.update("DAY", dayValues, "NAME = ?", new String[]{ day });
+        lines.get(numberLine).setVisibility(View.GONE);
+        pairs.get(checkingForExistence).setVisibility(View.GONE);
+    }
+
+    private void recoverOnPairs(int numberLine, int checkingForExistence, String numberPair, String value) {
         if (pairs.get(checkingForExistence + 1).getVisibility() == View.VISIBLE) {
             lines.get(numberLine).setVisibility(View.VISIBLE);
         }
         ContentValues dayValues = new ContentValues();
         dayValues.put(numberPair, value);
-        MainActivity.db.update("DAY", dayValues, "NAME = ?", new String[]{day});
+        db.update("DAY", dayValues, "NAME = ?", new String[]{day});
         pairs.get(checkingForExistence).setVisibility(View.VISIBLE);
     }
 
-    public void recoverUnderPairs(int numberLine, int checkingForExistence, String numberPair, String value) {
+    private void recoverUnderPairs(int numberLine, int checkingForExistence, String numberPair, String value) {
         if (pairs.get(checkingForExistence - 1).getVisibility() == View.VISIBLE) {
             lines.get(numberLine).setVisibility(View.VISIBLE);
         }
         ContentValues dayValues = new ContentValues();
         dayValues.put(numberPair, value);
-        MainActivity.db.update("DAY", dayValues, "NAME = ?", new String[]{day});
+        db.update("DAY", dayValues, "NAME = ?", new String[]{day});
         pairs.get(checkingForExistence).setVisibility(View.VISIBLE);
     }
 }

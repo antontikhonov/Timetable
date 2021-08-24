@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,192 +11,196 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/change_theme"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000" />
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="backDay"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/change_theme"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backArrow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/theme1"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/theme_alina"
+            android:onClick="updateAlina"
+            android:src="@drawable/alina_theme" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/theme2"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:contentDescription="@string/theme_loli"
+            android:onClick="updateLoli"
+            android:src="@drawable/loli_selected" />
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:onClick="backDay"
-                    android:src="@drawable/arrow_back" />
+        <ImageView
+            android:id="@+id/theme3"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:contentDescription="@string/theme_storm"
+            android:onClick="updateElectricity"
+            android:src="@drawable/electricity_theme" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/change_theme"
-                    android:textColor="#ffffff"
-                    android:textSize="30sp" />
-
-            </LinearLayout>
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:columnCount="3"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/theme1"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/theme_alina"
-                    android:onClick="updateAlina"
-                    android:src="@drawable/alina" />
-
-                <ImageView
-                    android:id="@+id/theme2"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:contentDescription="@string/theme_loli"
-                    android:onClick="updateLoli"
-                    android:src="@drawable/loli_selected" />
-
-                <ImageView
-                    android:id="@+id/theme3"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:contentDescription="@string/theme_storm"
-                    android:onClick="updateElectricity"
-                    android:src="@drawable/electricity" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/theme_alina"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/theme_loli"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/theme_storm"
-                    android:textColor="#ffffff" />
-
-                <ImageView
-                    android:id="@+id/theme4"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="4dp"
-                    android:contentDescription="@string/theme_noct"
-                    android:onClick="updateIamgay"
-                    android:src="@drawable/iamgay_theme" />
-
-                <ImageView
-                    android:id="@+id/theme5"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="4dp"
-                    android:contentDescription="@string/theme_sasha"
-                    android:onClick="updatePornhub"
-                    android:src="@drawable/pornhub_theme" />
-
-                <ImageView
-                    android:id="@+id/theme6"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="4dp"
-                    android:contentDescription="@string/theme_satanism"
-                    android:onClick="updateSatanism"
-                    android:src="@drawable/satanism" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/theme_noct"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/theme_sasha"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/theme_satanism"
-                    android:textColor="#ffffff" />
-            </GridLayout>
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_alina"
+            android:textColor="@color/white" />
 
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_loli"
+            android:textColor="@color/white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="toInstagramChiburick"
-                android:text="@string/designed_by_chiburick"
-                android:textColor="#ffffff"
-                android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_storm"
+            android:textColor="@color/white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="toInstagramAntoha"
-                android:text="@string/devoloped_by_antoshka_izh"
-                android:textColor="#ffffff"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </RelativeLayout>
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/theme4"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:contentDescription="@string/theme_noct"
+            android:onClick="updateIamgay"
+            android:src="@drawable/iamgay_theme" />
+
+        <ImageView
+            android:id="@+id/theme5"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:contentDescription="@string/theme_sasha"
+            android:onClick="updatePornhub"
+            android:src="@drawable/pornhub_theme" />
+
+        <ImageView
+            android:id="@+id/theme6"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:contentDescription="@string/theme_satanism"
+            android:onClick="updateSatanism"
+            android:src="@drawable/satanism" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_noct"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_sasha"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_satanism"
+            android:textColor="@color/white" />
+    </GridLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="toInstagramChiburick"
+        android:text="@string/designed_by_chiburick"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="toInstagramAntoha"
+        android:text="@string/devoloped_by_antoshka_izh"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

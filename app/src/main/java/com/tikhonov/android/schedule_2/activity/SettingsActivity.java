@@ -4,11 +4,13 @@ import static com.tikhonov.android.schedule_2.activity.MainActivityKt.BUTTON_COL
 import static com.tikhonov.android.schedule_2.activity.MainActivityKt.BUTTON_TEXT_COLOR;
 import static com.tikhonov.android.schedule_2.activity.MainActivityKt.IMAGE_BACKGROUND;
 import static com.tikhonov.android.schedule_2.activity.MainActivityKt.LINES_COLOR;
+import static com.tikhonov.android.schedule_2.activity.MainActivityKt.SHARED_PREFERENCES_FILE_NAME;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -21,13 +23,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
-    public List<ImageView> list = new ArrayList<>();
+    public final List<ImageView> list = new ArrayList<>();
     private ImageView imageView;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE);
         list.add((ImageView) findViewById(R.id.theme1));
         list.add((ImageView) findViewById(R.id.theme2));
         list.add((ImageView) findViewById(R.id.theme3));
@@ -40,7 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        ThemeSetter.Companion.setImage(this, getPackageName(), MainActivity.sharedPreferences.getString(IMAGE_BACKGROUND, "alina"), imageView);
+        ThemeSetter.Companion.setImage(this, getPackageName(), sharedPreferences.getString(IMAGE_BACKGROUND, "alina"), imageView);
         setSelectedScreenshots("alina", 0);
         setSelectedScreenshots("loli", 1);
         setSelectedScreenshots("electricity", 2);
@@ -50,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void setSelectedScreenshots(String nameTheme, int number) {
-        if (MainActivity.sharedPreferences.getString(IMAGE_BACKGROUND, "").equals(nameTheme)) {
+        if (sharedPreferences.getString(IMAGE_BACKGROUND, "").equals(nameTheme)) {
             ThemeSetter.Companion.setImage(this, getPackageName(), nameTheme + "_selected", list.get(number));
         } else {
             ThemeSetter.Companion.setImage(this, getPackageName(), nameTheme + "_theme", list.get(number));
@@ -67,8 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         try {
             startActivity(likeIntent);
         } catch (ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://instagram.com/chiburick")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/chiburick")));
         }
     }
 
@@ -107,7 +110,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void updateTheme(String image, String rounded_theme, String color_button, String color_lines) {
-        MainActivity.sharedPreferences.edit()
+        sharedPreferences.edit()
                 .putString(IMAGE_BACKGROUND, image)
                 .putString(BUTTON_COLOR, rounded_theme)
                 .putString(BUTTON_TEXT_COLOR, color_button)

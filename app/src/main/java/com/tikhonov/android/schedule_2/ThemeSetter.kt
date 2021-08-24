@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 private const val DRAWABLE = "drawable"
 
 class ThemeSetter {
+
     companion object {
         fun setImage(
             context: Context,
@@ -44,7 +45,6 @@ class ThemeSetter {
             list.forEach {
                 it.setBackgroundColor(Color.parseColor(colorCode))
             }
-
         }
     }
 }

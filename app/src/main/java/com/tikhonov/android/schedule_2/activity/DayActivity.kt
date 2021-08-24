@@ -34,15 +34,12 @@ class DayActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val imageView = findViewById<ImageView>(R.id.dayBackground)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_FILE_NAME, MODE_PRIVATE)
         ThemeSetter.setImage(
             this,
             packageName,
-            MainActivity.sharedPreferences.getString(IMAGE_BACKGROUND, "alina")!!,
+            sharedPreferences.getString(IMAGE_BACKGROUND, "alina")!!,
             imageView
         )
-    }
-
-    fun back(view: View) {
-        onBackPressed()
     }
 }

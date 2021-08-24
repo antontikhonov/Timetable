@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <ImageView
         tools:src="@drawable/alina"
-        android:id="@+id/image_main"
+        android:id="@+id/mainBackgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,36 +34,33 @@
         tools:visibility="visible"/>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/todayButton"
         style="@style/NotCapsButton"
         android:elevation="30dp"
-        android:onClick="toToday"
         android:text="@string/today"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/tomorrowButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/tomorrowButton"
         style="@style/NotCapsButton"
-        android:onClick="toTomorrow"
         android:text="@string/tomorrow"
         android:textStyle="bold"
         android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/settingsImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/settingsImageView"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="1"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/image_settings"
-        android:onClick="toSettings"
         android:src="@drawable/settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
